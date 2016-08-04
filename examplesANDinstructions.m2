@@ -27,6 +27,9 @@ use R -- this makes sure computations are done in the correct ring.
 
 ----* Example 1 *---------------------
 ---- Ix is the ideal of 2 generic points
+R=QQ[s,t,u,v, Degrees=>{{1,0},{1,0},{0,1},{0,1}}]
+S=QQ[X,Y,Z,W]
+T=R**S
 Ix=intersect(ideal(s,u),ideal(t,v))
 ---- the code below computes the Hilbert function
 ---- of the ideal Ix
@@ -37,6 +40,7 @@ B=super basis({3,1},Ix)
 ---- Then we choose a generic 4-dimension vector
 ---- subspace of Ix in bidegree (3,1)
 C=matrix{{1,0,0,0,-1,1},{0,1,0,0,1,1},{0,0,1,0,1,-3},{0,0,0,1,-5,1}}
+C=substitute(C,R)
 Iu = ideal(C*transpose(B))
 gens minors(4,C)
 ---- all of the minors of C are nonzero so we are
@@ -60,6 +64,7 @@ bgb coker gens Iu
 
 ---* Example 2 *--------------------------------------------
 ---- Ix is the ideal of 2 generic points
+use R
 Ix=intersect(ideal(s,u),ideal(t,v))
 ---- the code below computes the Hilbert function
 ---- of the ideal Ix
@@ -69,7 +74,8 @@ bmatrix(5,5,Ix)
 B=super basis({3,1},Ix)
 ---- Then we choose a generic 4-dimension vector
 ---- subspace of Ix in bidegree (3,1)
-C=matrix{{1,1,0,0,0,0},{0,1,1,0,0,0},{0,0,1,1,0,0},{0,0,0,1,1,1}}
+C=matrix{{1_R,1,0,0,0,0},{0,1,1,0,0,0},{0,0,1,1,0,0},{0,0,0,1,1,1}}
+C=substitute(C,R)
 Iu = ideal(C*transpose(B))
 gens minors(4,C)
 ---- all of the minors of C are nonzero so we are
@@ -77,8 +83,11 @@ gens minors(4,C)
 ---- In the next four lines we compute the implicit equation
 ---- we need to change the ring in which we are working on.
 use T
+toT = map(T,R)
+toT(Iu)
 Iu=substitute(Iu,T)
 zcomplex(Iu,3,1)
+eqzcpx
 eqzcpx
 -----------------
 Cvst.dd -- this is the Z-complex in bidegree (3,1)
@@ -92,10 +101,33 @@ bgb coker gens Iu
 ------------------------------------------------------------
 
 
+A = CC[gens R]
+F = flatten entries sub(gens Iu, A)
+I = ideal 0_A
+numericalImageDim(F,I)
+W = numericalImageDegree(F,I)
+peek W
+numericalHilbertFunction(F,I,10)
+numericalImageSample(F,I,100)
+p = numericalImageSample(F,I)
+isOnImage(W,p)
+
+-----------
+use R
+Iu=blin(4,1)
+time grobnerb(Iu)
+Iu=substitute(Iu,T)
+time zcomplex(Iu,4,1)
+Iu=substitute(Iu,R)
+time optimus(Iu,4,1)
+---
+
+
 ---* Example 3 *---------------------------------------------
+restart
 use R
 Iu  = gexample(3,1,4)
-bgb coker gens Iu
+--bgb coker gens Iu
 use T
 Iu = substitute(Iu,T)
 time zcomplex(Iu,3,1)

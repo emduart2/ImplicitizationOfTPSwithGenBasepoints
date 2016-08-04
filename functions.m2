@@ -1,10 +1,10 @@
-R=QQ[s,t,u,v, Degrees=>{{1,0},{1,0},{0,1},{0,1}}]
-S=QQ[X,Y,Z,W]
+R=ZZ/31991[s,t,u,v, Degrees=>{{1,0},{1,0},{0,1},{0,1}}]
+S=ZZ/31991[X,Y,Z,W]
 
 T=R**S
 
 installPackage "EliminationMatrices"
-installPackage "Depth"
+--installPackage "Depth"
 
 
 ----* bgb      *--------------------
