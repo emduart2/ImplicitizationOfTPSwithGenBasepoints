@@ -90,7 +90,7 @@ k=numgens source Cvst.dd_1;
 rows=for i from 0 to k-1 list (if not member(i,mns_1) then continue i);
 rows=delete(,rows);
 D=D|{Cvst.dd_2^rows};
-time eqzcpx= (det D_0)/(det D_1); --this line computes the determinant of the complex
+--time eqzcpx= (det D_0)/(det D_1); --this line computes the determinant of the complex
 )
 -----------------------------------------------------------------------------------------
 
