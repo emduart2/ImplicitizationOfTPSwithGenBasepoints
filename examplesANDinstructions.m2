@@ -30,6 +30,7 @@ use R -- this makes sure computations are done in the correct ring.
 R=QQ[s,t,u,v, Degrees=>{{1,0},{1,0},{0,1},{0,1}}]
 S=QQ[X,Y,Z,W]
 T=R**S
+use R
 Ix=intersect(ideal(s,u),ideal(t,v))
 ---- the code below computes the Hilbert function
 ---- of the ideal Ix
@@ -40,7 +41,9 @@ B=super basis({3,1},Ix)
 ---- Then we choose a generic 4-dimension vector
 ---- subspace of Ix in bidegree (3,1)
 C=matrix{{1,0,0,0,-1,1},{0,1,0,0,1,1},{0,0,1,0,1,-3},{0,0,0,1,-5,1}}
+C=matrix{{1,0,0,0,0,1},{0,0,0,1,0,1},{0,0,1,1,0,0},{0,1,1,1,0,0}}
 C=substitute(C,R)
+use R
 Iu = ideal(C*transpose(B))
 gens minors(4,C)
 ---- all of the minors of C are nonzero so we are
@@ -49,7 +52,7 @@ gens minors(4,C)
 ---- we need to change the ring in which we are working on.
 use T
 Iu=substitute(Iu,T)
-zcomplex(Iu,3,1)
+time zcomplex(Iu,3,1)
 eqzcpx
 -----------------
 Cvst.dd -- this is the Z-complex in bidegree (3,1)

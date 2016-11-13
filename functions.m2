@@ -1,5 +1,5 @@
-R=ZZ/31991[s,t,u,v, Degrees=>{{1,0},{1,0},{0,1},{0,1}}]
-S=ZZ/31991[X,Y,Z,W]
+R=QQ[s,t,u,v, Degrees=>{{1,0},{1,0},{0,1},{0,1}}]
+S=QQ[X,Y,Z,W]
 
 T=R**S
 
@@ -83,13 +83,13 @@ indmaps=apply(4,i->inducedMap(image(B_i),image(B_(i+1)),C.dd_(i+1)));
 mds=apply(4,k->map(T^(numgens target indmaps_k),T^(numgens source indmaps_k),(i,j)->
 (indmaps_k)_(i,j)));
 Cvst=chainComplex mds;
-D={};
-mns=maxCol(Cvst.dd_1);
-D=D|{mns_0};
-k=numgens source Cvst.dd_1;
-rows=for i from 0 to k-1 list (if not member(i,mns_1) then continue i);
-rows=delete(,rows);
-D=D|{Cvst.dd_2^rows};
+--D={};
+--mns=maxCol(Cvst.dd_1);
+--D=D|{mns_0};
+--k=numgens source Cvst.dd_1;
+--rows=for i from 0 to k-1 list (if not member(i,mns_1) then continue i);
+--rows=delete(,rows);
+--D=D|{Cvst.dd_2^rows};
 --time eqzcpx= (det D_0)/(det D_1); --this line computes the determinant of the complex
 )
 -----------------------------------------------------------------------------------------
@@ -117,10 +117,12 @@ i=0;
 lst={};
 while i<k
 do(
-M=random(R^1,R^2);
+M=random((ZZ/11)^1,(ZZ/11)^2);
+M=sub(M,R);
 forms=matrix{{s},{t}};
 Lp=M*forms;
-M=random(R^1,R^2);
+M=random((ZZ/11)^1,(ZZ/11)^2);
+M=sub(M,R);
 forms=matrix{{u},{v}};
 Lq=M*forms;
 testo=ideal(Lp,Lq);
