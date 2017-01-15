@@ -23,8 +23,8 @@ H3=ideal(h3,l3)
 H4=ideal(h4,l4)
 
 Ixx=intersect(H1,H2,H3,H4)
-M1=bmatrix(5,5,Ix)
-M2=bmatrix(5,7,Ix)
+M1=bmatrix(5,5,Ixx)
+M2=bmatrix(5,7,Ixx)
 
 h1=s
 h2=t
